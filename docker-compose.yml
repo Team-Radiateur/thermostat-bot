@@ -1,0 +1,39 @@
+version: "3.8"
+
+x-common:
+  &common
+  env_file: ./.env
+  networks:
+    - mysql-network
+  restart: always
+
+services:
+  database:
+    image: mysql:8.0
+    <<: *common
+    env_file:
+      - .env.database
+    ports:
+      - "3306:3306"
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+    volumes:
+      - mysql:/var/lib/mysql
+
+  bot:
+    <<: *common
+    image: "drakexorn/thermostat-bot:3.0.0-SNAPSHOT"
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    volumes:
+      - bot_logs:/app/logs
+    depends_on:
+      - database
+
+volumes:
+  mysql:
+  bot_logs:
+
+networks:
+  mysql-network:
