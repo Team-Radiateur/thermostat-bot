@@ -6,7 +6,7 @@ La finalité est d'avoir un bot qui puisse, via le système de réflection de Ja
 Ce projet sert principalement à apprendre le fonctionnement de l'API de réflexion, l'utiliser, et adapter au maximum le code pour simplifier l'ajout de nouvelles fonctionnalités.
 
 ## Avancée du projet
-- [ ] Configuration automatique du bot
+- [x] Configuration automatique du bot
 - [ ] Création de la base de données
   - [ ] Création des tables
     - [ ] `bad_words`
