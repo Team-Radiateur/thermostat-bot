@@ -19,5 +19,7 @@ public class Main {
             logger.error("Missing environment variable to complete configuration", exception);
             System.exit(1);
         }
+
+        new ThermostatBot(configuration);
     }
 }
