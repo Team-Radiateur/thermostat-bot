@@ -1,0 +1,22 @@
+name: Deploy bot to production server
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+    deploy:
+      name: Deploy
+      runs-on: ubuntu-latest
+      steps:
+        - name: Deploy
+          uses: appleboy/ssh-action@master
+          with:
+            host: ${{ secrets.SSH_HOST }}
+            username: ${{ secrets.SSH_USERNAME }}
+            key: ${{ secrets.SSH_KEY }}
+            port: ${{ secrets.SSH_PORT }}
+            script: |
+              cd thermostat-bot
+              git pull
+              docker-compose down && docker-compose up -d --build
