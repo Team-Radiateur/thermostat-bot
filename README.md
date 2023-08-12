@@ -11,13 +11,13 @@ Ce projet sert principalement à apprendre le fonctionnement de l'API de réflex
   - [ ] Création des tables
     - [ ] `bad_words`
 - [ ] Commandes
-  - [ ] Musique
-    - [ ] Play/Pause
-    - [ ] Skip
-    - [ ] Now Playing
-    - [ ] Clear (only admin)
-    - [ ] Lyrics
-    - [ ] Playlist
+  - [x] Musique
+    - [x] Play/Pause
+    - [x] Skip
+    - [x] Now Playing
+    - [x] Clear (only admin)
+    - [x] Lyrics
+    - [x] Playlist
   - [ ] Help
   - [ ] Ping
   - [ ] Mots interdits (requiert la base de données)
