@@ -31,20 +31,20 @@ Ce projet sert principalement à apprendre le fonctionnement de l'API de réflex
   - [ ] Météo Belgique
   - [ ] Infos générales du serveur
 - [ ] Événements
-  - [ ] Channel
-    - [ ] Création
-    - [ ] Édition
-    - [ ] Suppression
-  - [ ] Message
-    - [ ] Création
-    - [ ] Suppression
-    - [ ] Édition
-  - [ ] Rôle
-    - [ ] Création
-    - [ ] Modification
-    - [ ] Suppression
-    - [ ] Attribution
-    - [ ] Retrait
+  - [x] Channel
+    - [x] Création
+    - [x] Édition
+    - [x] Suppression
+  - [x] Message
+    - [x] Création
+    - [x] Suppression
+    - [x] Édition
+  - [x] Rôle
+    - [x] Création
+    - [x] Modification
+    - [x] Suppression
+    - [x] Attribution
+    - [x] Retrait
   - [ ] Membre
     - [ ] Arrivée
     - [ ] Départ
@@ -55,5 +55,5 @@ Ce projet sert principalement à apprendre le fonctionnement de l'API de réflex
     - [ ] Édition
     - [ ] Suppression
   - [x] Interactions (commandes) → détection et renvoi vers les commandes
-  - [ ] Bot prêt
-  - [ ] Changement de status voix
+  - [x] Bot prêt
+  - [x] Changement de status voix
