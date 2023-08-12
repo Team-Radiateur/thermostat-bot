@@ -18,8 +18,8 @@ Ce projet sert principalement à apprendre le fonctionnement de l'API de réflex
     - [x] Clear (only admin)
     - [x] Lyrics
     - [x] Playlist
-  - [ ] Help
-  - [ ] Ping
+  - [x] Help
+  - [x] Ping
   - [ ] Mots interdits (requiert la base de données)
     - [ ] Ajout
     - [ ] Retrait
@@ -27,7 +27,7 @@ Ce projet sert principalement à apprendre le fonctionnement de l'API de réflex
   - [ ] Annonces
   - [ ] Suppression de tous les messages d'une personne
   - [ ] Suppression de x messages d'un channel
-  - [ ] Goélette au rapport
+  - [x] Goélette au rapport
   - [ ] Météo Belgique
   - [ ] Infos générales du serveur
 - [ ] Événements
