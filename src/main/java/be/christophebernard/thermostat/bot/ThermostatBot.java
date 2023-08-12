@@ -5,6 +5,7 @@ import be.christophebernard.thermostat.bot.common.ICommandExecutor;
 import be.christophebernard.thermostat.bot.common.utils.OptionParser;
 import be.christophebernard.thermostat.bot.common.annotations.DiscordCommand;
 import be.christophebernard.thermostat.bot.common.annotations.DiscordEvent;
+import be.christophebernard.thermostat.bot.handlers.ActivityStatusUpdateHandler;
 import be.christophebernard.thermostat.bot.handlers.CommandHandler;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -37,6 +38,9 @@ public class ThermostatBot {
                            .addEventListeners(commandHandler)
                            .build();
 
+        Executors.newScheduledThreadPool(1)
+                 .scheduleAtFixedRate(new ActivityStatusUpdateHandler(client), 0, 20, TimeUnit.SECONDS);
+
         logger.info("Registering commands and events...");
         registerCommandsAndEvents();
     }
@@ -65,8 +69,8 @@ public class ThermostatBot {
                               annotation = commandClass.getAnnotation(DiscordCommand.class);
                               logger.debug("Registering command `" + annotation.name() + "`");
                           } catch (
-                                  NoSuchMethodException | InvocationTargetException |
-                                  InstantiationException | IllegalAccessException e
+                                    NoSuchMethodException | InvocationTargetException |
+                                    InstantiationException | IllegalAccessException e
                           ) {
                               logger.error(
                                       "Failed to register command for class `" +
@@ -108,8 +112,8 @@ public class ThermostatBot {
 
                 return eventClass.getDeclaredConstructor().newInstance();
             } catch (
-                    NoSuchMethodException | InvocationTargetException |
-                    InstantiationException | IllegalAccessException exception
+                      NoSuchMethodException | InvocationTargetException |
+                      InstantiationException | IllegalAccessException exception
             ) {
                 logger.error("Failed to register event for class `" + eventClass.getSimpleName() + "`", exception);
                 return null;

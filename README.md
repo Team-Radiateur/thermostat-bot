@@ -54,6 +54,6 @@ Ce projet sert principalement à apprendre le fonctionnement de l'API de réflex
     - [ ] Création
     - [ ] Édition
     - [ ] Suppression
-  - [ ] Interactions (commandes) → détection et renvoi vers les commandes
+  - [x] Interactions (commandes) → détection et renvoi vers les commandes
   - [ ] Bot prêt
   - [ ] Changement de status voix
