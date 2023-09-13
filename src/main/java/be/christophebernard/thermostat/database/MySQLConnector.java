@@ -1,21 +1,24 @@
 package be.christophebernard.thermostat.database;
 
 import be.christophebernard.thermostat.Configuration;
+import be.christophebernard.thermostat.database.caching.DataCache;
 import org.jetbrains.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class MySQLConnector implements IDatabaseConnector {
-	private static MySQLConnector instance;
 	private final Connection connection;
+	private final DataCache<String, Set<String>> badsWordsCache;
+	private static MySQLConnector instance;
 	private static Logger logger;
 
 	private MySQLConnector(Connection connection) {
 		this.connection = connection;
+		badsWordsCache = new DataCache<>(300, 60, 200);
 	}
 
 	public static @Nullable MySQLConnector getInstance() {
@@ -52,10 +55,10 @@ public class MySQLConnector implements IDatabaseConnector {
 				create table if not exists `bad_word`(
 					id int not null auto_increment,
 				    guild_id varchar(255) not null,
-				    word varchar(255) not null,
+				    word varchar(191) character set utf8mb4 collate utf8mb4_unicode_ci not null,
 				    enabled boolean default true,
 				    constraint bad_word_id_pk primary key(id)
-				);
+				) engine = InnoDB character set utf8mb4 collate utf8mb4_unicode_ci;
 				"""
 			);
 		} catch (SQLException exception) {
@@ -65,20 +68,29 @@ public class MySQLConnector implements IDatabaseConnector {
 	}
 
 	@Override
-	public List<String> getBadWords(String guildId) {
+	public Set<String> getBadWords(String guildId) {
 		try {
 			logger.info("Fetching prevented words for guild id %s...".formatted(guildId));
+			if (badsWordsCache.get(guildId) != null) {
+				logger.info("Prevented words for guild id {} found in cache", guildId);
 
-			PreparedStatement statement = (PreparedStatement) connection.createStatement();
-			String query = "select word from `bad_word` where guild_id = ? and enabled = true;";
+				return badsWordsCache.get(guildId);
+			}
+
+			PreparedStatement statement = connection.prepareStatement(
+					"select word from `bad_word` where guild_id = ? and enabled = true;"
+			);
 			statement.setString(1, guildId);
 
-			ResultSet result = statement.executeQuery(query);
-			List<String> words = new ArrayList<>();
+			ResultSet result = statement.executeQuery();
+			Set<String> words = new HashSet<>();
 
 			while (result.next()) {
+				logger.info("Prevented word {} found for guild id {}", result.getString("word"), guildId);
 				words.add(result.getString("word"));
 			}
+
+			badsWordsCache.put(guildId, words);
 
 			return words;
 		} catch (SQLException exception) {
@@ -90,15 +102,22 @@ public class MySQLConnector implements IDatabaseConnector {
 	@Override
 	public boolean addBadWord(String guildId, String word) {
 		try {
-			logger.info("Preventing word %s to be written in %s's channels...".formatted(word, guildId));
+			logger.info("Preventing word {} to be written in {}'s channels...", word, guildId);
 
-			PreparedStatement statement = (PreparedStatement) connection.createStatement();
-			String query = "insert into `bad_word`(guild_id, word) values(?, ?);";
-
+			PreparedStatement statement = connection.prepareStatement(
+					"insert into `bad_word`(guild_id, word) values(?, ?);"
+			);
 			statement.setString(1, guildId);
 			statement.setString(2, word);
+			statement.executeUpdate();
 
-			return statement.execute(query);
+			Set<String> badWords = badsWordsCache.get(guildId);
+
+			if (badWords != null) {
+				badWords.add(word);
+			}
+
+			return true;
 		} catch (SQLException exception) {
 			logger.error("An error occurred while adding the words to the prevented list", exception);
 			return false;
@@ -108,15 +127,22 @@ public class MySQLConnector implements IDatabaseConnector {
 	@Override
 	public boolean enableBadWord(String guildId, String word) {
 		try {
-			logger.info("Re-enabling prevention for word `%s` in guild %s...".formatted(word, guildId));
+			logger.info("Re-enabling prevention for word `{}` in guild {}...", word, guildId);
 
-			PreparedStatement statement = (PreparedStatement) connection.createStatement();
-			String query = "update `bad_word` set enabled = true where guild_id = ? and word = ?;" ;
-
+			PreparedStatement statement = connection.prepareStatement(
+					"update `bad_word` set enabled = true where guild_id = ? and word = ?;"
+			);
 			statement.setString(1, guildId);
 			statement.setString(2, word);
+			statement.executeUpdate();
 
-			return statement.execute(query);
+			Set<String> words = badsWordsCache.get(guildId);
+
+			if (words != null) {
+				words.add(word);
+			}
+
+			return true;
 		} catch (SQLException exception) {
 			logger.error("An error occurred while re-enabling word prevention", exception);
 			return false;
@@ -126,15 +152,23 @@ public class MySQLConnector implements IDatabaseConnector {
 	@Override
 	public boolean disableBadWord(String guildId, String word) {
 		try {
-			logger.info("Disabling word prevention %s for guild %s...".formatted(word, guildId));
+			logger.info("Disabling word prevention of {} for guild {}...", word, guildId);
 
-			PreparedStatement statement = (PreparedStatement) connection.createStatement();
-			String query = "update `bad_word` set enabled = false where guild_id = ? and word = ?;" ;
+			PreparedStatement statement = connection.prepareStatement(
+					"update `bad_word` set enabled = false where guild_id = ? and word = ?;"
+			);
 
 			statement.setString(1, guildId);
 			statement.setString(2, word);
+			statement.executeUpdate();
 
-			return statement.execute(query);
+			Set<String> words = badsWordsCache.get(guildId);
+
+			if (words != null) {
+				words.remove(word);
+			}
+
+			return true;
 		} catch (SQLException exception) {
 			logger.error("An error occurred while disabling word prevention", exception);
 			return false;

@@ -1,10 +1,10 @@
 package be.christophebernard.thermostat.database;
 
-import java.util.List;
+import java.util.Set;
 
 public interface IDatabaseConnector {
 	boolean databaseSet();
-	List<String> getBadWords(String guildId);
+	Set<String> getBadWords(String guildId);
 	boolean addBadWord(String guildId, String word);
 	boolean enableBadWord(String guildId, String word);
 	boolean disableBadWord(String guildId, String word);
