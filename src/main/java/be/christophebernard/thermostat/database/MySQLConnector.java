@@ -53,8 +53,8 @@ public class MySQLConnector implements IDatabaseConnector {
 		try {
 			logger.info("Verifying database tables presence...");
 
-			return connection.createStatement().execute(
-			"""
+			PreparedStatement preparedStatement = connection.prepareStatement(
+            """
 				create table if not exists `bad_word`(
 					id int not null auto_increment,
 				    guild_id varchar(255) not null,
@@ -64,6 +64,10 @@ public class MySQLConnector implements IDatabaseConnector {
 				) engine = InnoDB character set utf8mb4 collate utf8mb4_unicode_ci;
 				"""
 			);
+
+			preparedStatement.executeUpdate();
+
+			return true;
 		} catch (SQLException exception) {
 			logger.error(exception.getMessage(), exception);
 			return false;
