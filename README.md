@@ -7,9 +7,9 @@ Ce projet sert principalement à apprendre le fonctionnement de l'API de réflex
 
 ## Avancée du projet
 - [x] Configuration automatique du bot
-- [ ] Création de la base de données
-  - [ ] Création des tables
-    - [ ] `bad_words`
+- [x] Création de la base de données
+  - [x] Création des tables
+    - [x] `bad_words`
 - [ ] Commandes
   - [x] Musique
     - [x] Play/Pause

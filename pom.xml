@@ -116,5 +116,11 @@
             <artifactId>JLyrics</artifactId>
             <version>0f9ac5df83</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.mysql</groupId>
+            <artifactId>mysql-connector-j</artifactId>
+            <version>8.1.0</version>
+        </dependency>
     </dependencies>
 </project>

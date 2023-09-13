@@ -28,4 +28,6 @@ WORKDIR /app
 COPY --from=builder /build/target/thermostat_bot*.jar /app/thermostat_bot.jar
 RUN printenv > /app/.env
 
+RUN sleep 2
+
 ENTRYPOINT ["java", "-jar", "/app/thermostat_bot.jar"]

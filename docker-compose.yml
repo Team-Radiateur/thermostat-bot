@@ -17,8 +17,10 @@ services:
       - "3306:3306"
     healthcheck:
       test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
+    command: --default-authentication-plugin=caching_sha2_password
     volumes:
       - mysql:/var/lib/mysql
+      - ./database/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
 
   bot:
     <<: *common
@@ -29,8 +31,8 @@ services:
     volumes:
       - bot_logs:/app/logs
     depends_on:
-      - database
-
+      database:
+        condition: service_healthy
 volumes:
   mysql:
   bot_logs:
