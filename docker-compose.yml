@@ -9,18 +9,19 @@ x-common:
 
 services:
   database:
-    image: mysql:8.0
+    image: mariadb:latest
     <<: *common
     env_file:
       - .env.database
     ports:
       - "3306:3306"
     healthcheck:
-      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost"]
-    command: --default-authentication-plugin=caching_sha2_password
+      test: ["CMD", "mysqladmin", "ping", "--silent"]
+    command: --default-authentication-plugin=caching_sha2_password --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
     volumes:
       - mysql:/var/lib/mysql
       - ./database/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+      - ./database/my.cnf:/etc/my.cnf
 
   bot:
     <<: *common
@@ -33,6 +34,7 @@ services:
     depends_on:
       database:
         condition: service_healthy
+
 volumes:
   mysql:
   bot_logs:
