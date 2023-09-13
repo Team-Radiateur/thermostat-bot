@@ -17,6 +17,8 @@ public class ActivityStatusUpdateHandler implements Runnable {
 	@Override
 	public void run() {
 		client.getPresence()
-		      .setActivity(Activity.watching("la température. " + random.nextInt(60, 80) + "°C"));
+		      .setActivity(
+					  Activity.watching("la température. %d°C".formatted(random.nextInt(60, 80)))
+		      );
 	}
 }
