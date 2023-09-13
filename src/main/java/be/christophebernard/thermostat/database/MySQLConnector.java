@@ -35,7 +35,10 @@ public class MySQLConnector implements IDatabaseConnector {
 						)
 				);
 
-				instance.databaseSet();
+				if (!instance.databaseSet()) {
+					logger.error("An error occurred while setting up the database");
+					return null;
+				}
 			} catch (SQLException exception) {
 				logger.error("An error occurred while connecting", exception);
 				return null;
