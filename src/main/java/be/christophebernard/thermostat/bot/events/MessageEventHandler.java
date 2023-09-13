@@ -23,7 +23,10 @@ public class MessageEventHandler extends ListenerAdapter {
             return;
         }
 
-        logger.info("Message de " + event.getAuthor().getEffectiveName() + ": " + event.getMessage().getContentRaw());
+        logger.info("Message de %s: %s".formatted(
+		        event.getAuthor().getEffectiveName(),
+		        event.getMessage().getContentRaw()
+        ));
     }
 
     @Override
@@ -32,11 +35,16 @@ public class MessageEventHandler extends ListenerAdapter {
             return;
         }
 
-        logger.info(event.getAuthor().getEffectiveName() + " a modifié son message: " + event.getMessage().getContentRaw());
+        logger.info(
+                "%s a modifié son message: %s".formatted(
+                        event.getAuthor().getEffectiveName(),
+		                event.getMessage().getContentRaw()
+                )
+        );
     }
 
     @Override
     public void onMessageDelete(@NotNull MessageDeleteEvent event) {
-        logger.info("Suppression du message: " + event.getMessageId());
+        logger.info("Suppression du message: %s".formatted(event.getMessageId()));
     }
 }

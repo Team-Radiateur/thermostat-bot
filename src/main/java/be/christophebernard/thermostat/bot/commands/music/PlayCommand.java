@@ -101,14 +101,14 @@ public class PlayCommand implements ICommandExecutor {
 						scheduler.enqueue(audioTrack);
 					}
 
-					logger.info(audioTrack.getInfo().title + " ajouté à la file d'attente.");
+					logger.info("%s ajouté à la file d'attente.".formatted(audioTrack.getInfo().title));
 					embed.setDescription(
-							audioTrack.getInfo().title +
-									" de " +
-									audioTrack.getInfo().author +
-									" ajouté à la file d'attente."
+							"%s de %s ajouté à la file d'attente.".formatted(
+									audioTrack.getInfo().title,
+									audioTrack.getInfo().author
+							)
 					).appendDescription(scheduler.nowPlaying()).setImage(
-							audioTrack.getInfo().uri.contains("youtube") ? "https://i.ytimg.com/vi/" + audioTrack.getInfo().identifier + "/hqdefault.jpg" : null
+							audioTrack.getInfo().uri.contains("youtube") ? "https://i.ytimg.com/vi/%s/hqdefault.jpg".formatted(audioTrack.getInfo().identifier) : null
 					);
 
 					connect();
@@ -117,12 +117,12 @@ public class PlayCommand implements ICommandExecutor {
 
 				@Override
 				public void playlistLoaded(AudioPlaylist audioPlaylist) {
-					logger.info(audioPlaylist.getTracks().size() + " musiques trouvées.");
+					logger.info("%d musiques trouvées.".formatted(audioPlaylist.getTracks().size()));
 					embed.setDescription(
-							audioPlaylist.getTracks().size() +
-									" musiques de " +
-									audioPlaylist.getName() +
-									" ajoutées à la file d'attente."
+							"%d musiques de %s ajoutées à la file d'attente.".formatted(
+									audioPlaylist.getTracks().size(),
+									audioPlaylist.getName()
+							)
 					);
 					scheduler.enqueue(audioPlaylist.getTracks().toArray(new AudioTrack[0]));
 

@@ -22,7 +22,6 @@ public class NowPlayingCommand implements ICommandExecutor {
 			int position = (int) (track.getPosition());
 			long duration = track.getDuration();
 
-			// créer une barre de progression
 			StringBuilder progress = new StringBuilder();
 			for (int i = 0; i < 25; i++) {
 				if (i == (position * 25L) / duration) {
@@ -33,8 +32,12 @@ public class NowPlayingCommand implements ICommandExecutor {
 			}
 
 			embed.setDescription(
-					"En cours de lecture : " + track.getInfo().title + "]\n" +
-					progress + "  `" + formatTime(track.getPosition()) + "/" + formatTime(track.getDuration()) + "`"
+					"En cours de lecture : %s]\n%s  `%s/%s`".formatted(
+							track.getInfo().title,
+							progress,
+							formatTime(track.getPosition()),
+							formatTime(track.getDuration())
+					)
 			);
 		}
 

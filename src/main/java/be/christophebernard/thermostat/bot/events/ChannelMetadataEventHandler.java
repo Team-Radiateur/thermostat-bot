@@ -60,133 +60,189 @@ public class ChannelMetadataEventHandler extends ListenerAdapter {
 
 	@Override
 	public void onChannelCreate(@NotNull ChannelCreateEvent event) {
-		String status = "Canal créé: " + event.getChannel().getName() + " (" + event.getChannel().getType() + ")";
+		String status = "Canal créé: %s (%s)".formatted(event.getChannel().getName(), event.getChannel().getType());
 
 		logEvent(event, status);
 	}
 
 	@Override
 	public void onChannelDelete(@NotNull ChannelDeleteEvent event) {
-		String status = "Canal supprimé: " + event.getChannel().getName() + " (" + event.getChannel().getType() + ")";
+		String status = "Canal supprimé: %s (%s)".formatted(event.getChannel().getName(), event.getChannel().getType());
 
 		logEvent(event, status);
 	}
 
 	@Override
 	public void onChannelUpdateBitrate(@NotNull ChannelUpdateBitrateEvent event) {
-		String status = "Bitrate du canal " + event.getChannel().getName() + " modifié: " + event.getOldValue() + " -> " + event.getNewValue();
+		String status = "Bitrate du canal %s modifié: %d -> %d".formatted(
+				event.getChannel().getName(),
+				event.getOldValue(),
+				event.getNewValue()
+		);
 
 		logEvent(event, status);
 	}
 
 	@Override
 	public void onChannelUpdateName(@NotNull ChannelUpdateNameEvent event) {
-		String status = "Nom du canal " + event.getChannel().getName() + " modifié: " + event.getOldValue() + " -> " + event.getNewValue();
+		String status = "Nom du canal %s modifié: %s -> %s".formatted(
+				event.getChannel().getName(),
+				event.getOldValue(),
+				event.getNewValue()
+		);
 
 		logEvent(event, status);
 	}
 
 	@Override
 	public void onChannelUpdateFlags(@NotNull ChannelUpdateFlagsEvent event) {
-		String status = "Flags du canal " + event.getChannel().getName() + " modifié: " + event.getOldValue() + " -> " + event.getNewValue();
+		String status = "Flags du canal %s modifié: %s -> %s".formatted(
+				event.getChannel().getName(),
+				event.getOldValue(),
+				event.getNewValue()
+		);
 
 		logEvent(event, status);
 	}
 
 	@Override
 	public void onChannelUpdateParent(@NotNull ChannelUpdateParentEvent event) {
-		String status = "Parent du canal " + event.getChannel().getName() + " modifié: " + event.getOldValue() + " -> " + event.getNewValue();
+		String status = "Parent du canal %s modifié: %s -> %s".formatted(
+				event.getChannel().getName(),
+				event.getOldValue(),
+				event.getNewValue()
+		);
 
 		logEvent(event, status);
 	}
 
 	@Override
 	public void onChannelUpdatePosition(@NotNull ChannelUpdatePositionEvent event) {
-		String status = "Position du canal " + event.getChannel().getName() + " modifié: " + event.getOldValue() + " -> " + event.getNewValue();
+		String status = "Position du canal %s modifié: %d -> %d".formatted(
+				event.getChannel().getName(),
+				event.getOldValue(),
+				event.getNewValue()
+		);
 
 		logEvent(event, status);
 	}
 
 	@Override
 	public void onChannelUpdateRegion(@NotNull ChannelUpdateRegionEvent event) {
-		String status = "Région du canal " + event.getChannel().getName() + " modifié: " + event.getOldValue() + " -> " + event.getNewValue();
+		String status = "Région du canal %s modifié: %s -> %s".formatted(
+				event.getChannel().getName(),
+				event.getOldValue(),
+				event.getNewValue()
+		);
 
 		logEvent(event, status);
 	}
 
 	@Override
 	public void onChannelUpdateSlowmode(@NotNull ChannelUpdateSlowmodeEvent event) {
-		String status = "Slowmode du canal " + event.getChannel().getName() + " modifié: " + event.getOldValue() + " -> " + event.getNewValue();
+		String status = "Slowmode du canal %s modifié: %d -> %d".formatted(
+				event.getChannel().getName(),
+				event.getOldValue(),
+				event.getNewValue()
+		);
 
 		logEvent(event, status);
 	}
 
 	@Override
 	public void onChannelUpdateDefaultThreadSlowmode(@NotNull ChannelUpdateDefaultThreadSlowmodeEvent event) {
-		String status = "Slowmode par défaut du canal " + event.getChannel().getName() + " modifié: " + event.getOldValue() + " -> " + event.getNewValue();
+		String status = "Slowmode par défaut du canal %s modifié: %d -> %d".formatted(
+				event.getChannel().getName(),
+				event.getOldValue(),
+				event.getNewValue()
+		);
 
 		logEvent(event, status);
 	}
 
 	@Override
 	public void onChannelUpdateDefaultReaction(@NotNull ChannelUpdateDefaultReactionEvent event) {
-		String status = "Réaction par défaut du canal " + event.getChannel().getName() + " modifié: " + event.getOldValue() + " -> " + event.getNewValue();
+		String status = "Réaction par défaut du canal %s modifié: %s -> %s".formatted(
+				event.getChannel().getName(),
+				event.getOldValue(),
+				event.getNewValue()
+		);
 
 		logEvent(event, status);
 	}
 
 	@Override
 	public void onChannelUpdateDefaultLayout(@NotNull ChannelUpdateDefaultLayoutEvent event) {
-		String status = "Layout par défaut du canal " + event.getChannel().getName() + " modifié: " + event.getOldValue() + " -> " + event.getNewValue();
+		String status = "Layout par défaut du canal %s modifié: %s -> %s".formatted(
+				event.getChannel().getName(),
+				event.getOldValue(),
+				event.getNewValue()
+		);
 
 		logEvent(event, status);
 	}
 
 	@Override
 	public void onChannelUpdateTopic(@NotNull ChannelUpdateTopicEvent event) {
-		String status = "Topic du canal " + event.getChannel().getName() + " modifié: " + event.getOldValue() + " -> " + event.getNewValue();
+		String status = "Topic du canal %s modifié: %s -> %s".formatted(
+				event.getChannel().getName(),
+				event.getOldValue(),
+				event.getNewValue()
+		);
 
 		logEvent(event, status);
 	}
 
 	@Override
 	public void onChannelUpdateType(@NotNull ChannelUpdateTypeEvent event) {
-		String status = "Type du canal " + event.getChannel().getName() + " modifié: " + event.getOldValue() + " -> " + event.getNewValue();
+		String status = "Type du canal %s modifié: %s -> %s".formatted(
+				event.getChannel().getName(),
+				event.getOldValue(),
+				event.getNewValue()
+		);
 
 		logEvent(event, status);
 	}
 
 	@Override
 	public void onChannelUpdateUserLimit(@NotNull ChannelUpdateUserLimitEvent event) {
-		String status = "Limite d'utilisateurs du canal " + event.getChannel().getName() + " modifié: " + event.getOldValue() + " -> " + event.getNewValue();
+		String status = "Limite d'utilisateurs du canal %s modifié: %d -> %d".formatted(
+				event.getChannel().getName(),
+				event.getOldValue(),
+				event.getNewValue()
+		);
 
 		logEvent(event, status);
 	}
 
 	@Override
 	public void onChannelUpdateArchived(@NotNull ChannelUpdateArchivedEvent event) {
-		String status = "Canal " + event.getChannel().getName() + " archivé";
+		String status = "Canal %s archivé".formatted(event.getChannel().getName());
 
 		logEvent(event, status);
 	}
 
 	@Override
 	public void onChannelUpdateAutoArchiveDuration(@NotNull ChannelUpdateAutoArchiveDurationEvent event) {
-		String status = "Durée d'archivage automatique du canal " + event.getChannel().getName() + " modifié: " + event.getOldValue() + " -> " + event.getNewValue() + " secondes";
+		String status = "Durée d'archivage automatique du canal %s modifié: %s -> %s secondes".formatted(
+				event.getChannel().getName(),
+				event.getOldValue(),
+				event.getNewValue()
+		);
 
 		logEvent(event, status);
 	}
 
 	@Override
 	public void onChannelUpdateLocked(@NotNull ChannelUpdateLockedEvent event) {
-		String status = "Canal " + event.getChannel().getName() + " verrouillé";
+		String status = "Canal %s verrouillé".formatted(event.getChannel().getName());
 
 		logEvent(event, status);
 	}
 
 	@Override
 	public void onChannelUpdateInvitable(@NotNull ChannelUpdateInvitableEvent event) {
-		String status = "Canal " + event.getChannel().getName() + " rendu invitable";
+		String status = "Canal %s rendu invitable".formatted(event.getChannel().getName());
 
 		logEvent(event, status);
 	}

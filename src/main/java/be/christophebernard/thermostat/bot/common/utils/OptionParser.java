@@ -20,7 +20,7 @@ public class OptionParser {
         }
 
         if (type == null || name == null || description == null) {
-            throw new IllegalArgumentException("Invalid option: " + option);
+            throw new IllegalArgumentException("Invalid option: %s".formatted(option));
         }
 
         boolean required = Boolean.parseBoolean(parts[3].split(": ")[1]);

@@ -49,14 +49,17 @@ public class LyricsCommand implements ICommandExecutor {
 
 		if (lyrics == null) {
 			hook.editOriginalEmbeds(
-					embed.setDescription("Aucune parole n'a été trouvée pour " + track.getInfo().title)
+					embed.setDescription("Aucune parole n'a été trouvée pour %s".formatted(track.getInfo().title))
 					     .build()
 			).queue();
 			return;
 		}
 
 		hook.editOriginalEmbeds(
-				embed.setDescription("Voici les paroles pour " + track.getInfo().title + ":\n\n" +lyrics.getContent())
+				embed.setDescription("Voici les paroles pour %s:\n\n%s".formatted(
+						     track.getInfo().title,
+						     lyrics.getContent()
+				     ))
 				     .build()
 		).queue();
 	}

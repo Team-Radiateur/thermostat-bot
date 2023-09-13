@@ -19,6 +19,6 @@ public class KeyValuePair<KType, VType> {
 
     @Override
     public String toString() {
-        return "{ " +key + ": " + value + " }";
+        return "{ %s: %s }".formatted(key, value);
     }
 }

@@ -74,8 +74,8 @@ public class SkipCommand implements ICommandExecutor {
 		}
 
 		hook.sendMessageEmbeds(
-				builder.setDescription("Musique suivante: " + track.getInfo().title)
-				       .setImage("https://img.youtube.com/vi/" + track.getIdentifier() + "/maxresdefault.jpg")
+				builder.setDescription("Musique suivante: %s".formatted(track.getInfo().title))
+				       .setImage("https://img.youtube.com/vi/%s/maxresdefault.jpg".formatted(track.getIdentifier()))
 				       .build()
 		).queue();
 	}

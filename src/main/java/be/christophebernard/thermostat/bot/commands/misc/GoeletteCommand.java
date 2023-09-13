@@ -35,7 +35,7 @@ public class GoeletteCommand implements ICommandExecutor {
 
 		event.getMessageChannel().sendMessageEmbeds(
 				TREmbed.newEmbed(TREmbed.EmbedType.INFO, event.getJDA(), event.getUser())
-				       .setDescription("Goélette au rapport ! " + person.getAsMention())
+				       .setDescription("Goélette au rapport ! %s".formatted(person.getAsMention()))
 				       .build()
 		).mention(person).queue();
 

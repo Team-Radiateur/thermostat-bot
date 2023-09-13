@@ -51,7 +51,7 @@ public class CommandHandler extends ListenerAdapter {
         String commandName = event.getName();
 
         if (!commands.containsKey(commandName) && !adminCommands.containsKey(commandName)) {
-            logger.info(event.getMember().toString() + " a utilisé une commande inconnue: " + commandName);
+            logger.info("%s a utilisé une commande inconnue: %s".formatted(event.getMember().toString(), commandName));
 
             EmbedBuilder embed = TREmbed.newEmbed(
                     TREmbed.EmbedType.INFO,

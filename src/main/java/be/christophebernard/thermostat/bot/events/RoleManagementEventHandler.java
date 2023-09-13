@@ -72,47 +72,50 @@ public class RoleManagementEventHandler extends ListenerAdapter {
 
 	@Override
 	public void onGuildMemberRoleAdd(@NotNull GuildMemberRoleAddEvent event) {
-		logger.info("Nouveaux rôles ajoutés à " +
-				            event.getMember().getEffectiveName() +
-				            ":\n" +
-							event.getRoles().stream()
-									.map(role -> role.getName() + " (" + role.getId() + ")")
-									.collect(Collectors.joining(
-											"",
-											"- ",
-											""
-									))
+		logger.info("Nouveaux rôles ajoutés à %s:\n%s".formatted(
+				            event.getMember().getEffectiveName(),
+				            event.getRoles().stream()
+				                 .map(role -> "%s (%s)".formatted(role.getName(), role.getId()))
+				                 .collect(Collectors.joining(
+						                 "",
+						                 "- ",
+						                 ""
+				                 ))
+		            )
 		);
 
 	}
 
 	@Override
 	public void onGuildMemberRoleRemove(@NotNull GuildMemberRoleRemoveEvent event) {
-		logger.info("Rôles retirés de " +
-				            event.getMember().getEffectiveName() +
-				            ":\n" +
-				            event.getRoles().stream()
-						            .map(role -> role.getName() + " (" + role.getId() + ")")
-						            .collect(Collectors.joining(
-								            "",
-								            "- ",
-								            ""
-						            ))
+		logger.info(
+				"Rôles retirés de %s:\n%s".formatted(
+						event.getMember().getEffectiveName(),
+						event.getRoles().stream()
+						     .map(role -> "%s (%s)".formatted(role.getName(), role.getId()))
+						     .collect(
+									 Collectors.joining(
+											 "",
+											 "- ",
+											 ""
+									 )
+						     )
+				)
 		);
 	}
 
 	@Override
 	public void onRoleCreate(@NotNull RoleCreateEvent event) {
-		logger.info("Nouveau rôle créé: " + event.getRole().getName() + " (" + event.getRole().getId() + ")");
+		logger.info("Nouveau rôle créé: %s (%s)".formatted(event.getRole().getName(), event.getRole().getId()));
 	}
 
 	@Override
 	public void onRoleDelete(@NotNull RoleDeleteEvent event) {
-		logger.info("Rôle supprimé: " + event.getRole().getName() + " (" + event.getRole().getId() + ")");
+		logger.info("Rôle supprimé: %s (%s)".formatted(event.getRole().getName(), event.getRole().getId()));
 	}
 
 	@Override
 	public void onGenericRoleUpdate(@NotNull GenericRoleUpdateEvent event) {
-		logger.info("Rôle " + event.getRole().getName() + " (" + event.getRole().getId() + ") mis à jour");
+		logger.info("Rôle %s (%s) mis à jour".formatted(event.getRole().getName(), event.getRole().getId()));
 	}
 }

@@ -49,7 +49,7 @@ public class HelpCommand implements ICommandExecutor {
 		EmbedBuilder embed = TREmbed.newEmbed(TREmbed.EmbedType.INFO, event.getJDA(), event.getUser());
 		String helpMessage = commands.entrySet()
 				                     .stream()
-				                     .map(command -> "`/" + command.getKey() + "` - " + command.getValue() + "\n")
+				                     .map(command -> "`/%s` - %s\n".formatted(command.getKey(), command.getValue()))
 				                     .collect(
 											 Collectors.joining(
 													 "",

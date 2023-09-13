@@ -74,7 +74,7 @@ public class Configuration {
             if (fieldAnnotation == null) {
                 continue;
             }
-            logger.debug("Searching for configuration for field `" + field.getName() + "`");
+            logger.debug("Searching for configuration for field `%s`".formatted(field.getName()));
 
             KeyValuePair<String, String> arg = args
                     .stream()
@@ -86,11 +86,10 @@ public class Configuration {
 
             if (arg == null) {
                 throw new MissingResourceException(
-                        "Missing environment variable for `" +
-                                fieldName +
-                                "` (needed `" +
-                                (fieldAnnotation.name().isEmpty() ? fieldName : fieldAnnotation.name()).toUpperCase() +
-                                "`)",
+		                "Missing environment variable for `%s` (needed `%s`)".formatted(
+				                fieldName,
+				                (fieldAnnotation.name().isEmpty() ? fieldName : fieldAnnotation.name()).toUpperCase()
+		                ),
                         Configuration.class.getName(),
                         fieldName
                 );
@@ -128,11 +127,7 @@ public class Configuration {
                                         yield new HashSet<>(List.of(new String[]{value}));
                                     }
                                     default -> throw new IllegalArgumentException(
-                                            "Unsupported type `" +
-                                                    typeArgument +
-                                                    "` for field `" +
-                                                    fieldName +
-                                                    "`"
+		                                    "Unsupported type `%s` for field `%s`".formatted(typeArgument, fieldName)
                                     );
                                 }
                             }
@@ -142,23 +137,19 @@ public class Configuration {
                                 yield new KeyValuePair<>(keyValue[0], keyValue[1]);
                             }
                             default -> throw new IllegalArgumentException(
-                                    "Unsupported type `" +
-                                            fieldType +
-                                            "` for field `" +
-                                            fieldName +
-                                            "`"
+		                            "Unsupported type `%s` for field `%s`".formatted(fieldType, fieldName)
                             );
                         }
                 );
             } catch (IllegalAccessException e) {
                 throw new MissingResourceException(
-                        "Failed to set configuration for field `" + fieldName + "`",
+		                "Failed to set configuration for field `%s`".formatted(fieldName),
                         Configuration.class.getName(),
                         fieldName
                 );
             }
 
-            logger.debug("Configuration for field `" + fieldName + "` loaded...");
+            logger.debug("Configuration for field `%s` loaded...".formatted(fieldName));
         }
 
         logger.info("Configuration loaded successfully!");
@@ -171,11 +162,7 @@ public class Configuration {
 
         if (keyValue.length != 2) {
             throw new IllegalArgumentException(
-                    "Invalid key-value pair `" +
-                            keyValueString +
-                            "` for field `" +
-                            fieldName +
-                            "`"
+		            "Invalid key-value pair `%s` for field `%s`".formatted(keyValueString, fieldName)
             );
         }
         return keyValue;
@@ -203,7 +190,7 @@ public class Configuration {
 
             return (T) field.get(this);
         } catch (IllegalAccessException | NoSuchFieldException e) {
-            logger.error("Failed to get configuration for field `" + fieldName + "`\n" + e.getMessage());
+            logger.error("Failed to get configuration for field `%s`\n%s".formatted(fieldName, e.getMessage()));
 
             return null;
         }

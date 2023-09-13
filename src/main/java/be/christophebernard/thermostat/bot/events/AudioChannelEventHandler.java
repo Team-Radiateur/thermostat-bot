@@ -32,13 +32,16 @@ public class AudioChannelEventHandler extends ListenerAdapter {
 
 		if (event.getOldValue() == null) {
 			if (event.getNewValue() != null) {
-				status += " s'est connecté au salon " + event.getNewValue().getName();
+				status += " s'est connecté au salon %s".formatted(event.getNewValue().getName());
 			}
 			return;
 		} else if (event.getNewValue() == null) {
-			status += " s'est déconnecté du salon " + event.getOldValue().getName();
+			status += " s'est déconnecté du salon %s".formatted(event.getOldValue().getName());
 		} else if (event.getOldValue().getIdLong() != event.getNewValue().getIdLong()) {
-			status += " a changé de salon : " + event.getOldValue().getName() + " => " + event.getNewValue().getName();
+			status += " a changé de salon : %s => %s".formatted(
+					event.getOldValue().getName(),
+					event.getNewValue().getName()
+			);
 		}
 
 		String guildId = event.getGuild().getId();

@@ -34,7 +34,7 @@ public class ThermostatBot {
         logger.info("Starting bot...");
 
         commandHandler = new CommandHandler();
-        client = JDABuilder.create(configuration.get("token"),GatewayIntent.getIntents(configuration.get("intents")))
+        client = JDABuilder.create(configuration.get("token"), GatewayIntent.getIntents(configuration.get("intents")))
                            .addEventListeners(commandHandler)
                            .build();
 
@@ -59,23 +59,21 @@ public class ThermostatBot {
                           try {
                               if (!ICommandExecutor.class.isAssignableFrom(commandClass)) {
                                   throw new IllegalArgumentException(
-                                          "Class `" +
-                                                  commandClass.getSimpleName() +
-                                                  "` does not implement ICommandExecutor, which is required"
+                                          "Class `%s` does not implement ICommandExecutor, which is required"
+                                                  .formatted(commandClass.getSimpleName())
                                   );
                               }
 
                               commandInstance = (ICommandExecutor) commandClass.getDeclaredConstructor().newInstance();
                               annotation = commandClass.getAnnotation(DiscordCommand.class);
-                              logger.debug("Registering command `" + annotation.name() + "`");
+                              logger.debug("Registering command `%s`".formatted(annotation.name()));
                           } catch (
                                     NoSuchMethodException | InvocationTargetException |
                                     InstantiationException | IllegalAccessException e
                           ) {
                               logger.error(
-                                      "Failed to register command for class `" +
-                                              commandClass.getSimpleName() +
-                                              "`"
+                                      "Failed to register command for class `%s`"
+                                              .formatted(commandClass.getSimpleName())
                               );
                               return null;
                           }
@@ -108,14 +106,17 @@ public class ThermostatBot {
         client.addEventListener(events.stream().map(eventClass -> {
             try {
                 DiscordEvent annotation = eventClass.getAnnotation(DiscordEvent.class);
-                logger.debug("Registering event `" + annotation.name() + "`");
+                logger.debug("Registering event `%s`".formatted(annotation.name()));
 
                 return eventClass.getDeclaredConstructor().newInstance();
             } catch (
                       NoSuchMethodException | InvocationTargetException |
                       InstantiationException | IllegalAccessException exception
             ) {
-                logger.error("Failed to register event for class `" + eventClass.getSimpleName() + "`", exception);
+                logger.error(
+                        "Failed to register event for class `%s`".formatted(eventClass.getSimpleName()),
+                        exception
+                );
                 return null;
             }
         }).filter(Objects::nonNull).toList().toArray());
