@@ -102,7 +102,6 @@ public class ThermostatBot {
                       }).filter(Objects::nonNull).collect(Collectors.toList())
               ).queue();
 
-
         client.addEventListener(events.stream().map(eventClass -> {
             try {
                 DiscordEvent annotation = eventClass.getAnnotation(DiscordEvent.class);
