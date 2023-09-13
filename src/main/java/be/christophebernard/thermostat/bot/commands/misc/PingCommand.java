@@ -2,6 +2,7 @@ package be.christophebernard.thermostat.bot.commands.misc;
 
 import be.christophebernard.thermostat.bot.common.ICommandExecutor;
 import be.christophebernard.thermostat.bot.common.annotations.DiscordCommand;
+import be.christophebernard.thermostat.bot.common.utils.TREmbed;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.interactions.commands.OptionMapping;
 
@@ -17,10 +18,16 @@ public class PingCommand implements ICommandExecutor {
     @Override
     public void execute(SlashCommandInteractionEvent event)  {
         OptionMapping messageOption = event.getOption("message");
-        String message = messageOption != null ? messageOption.getAsString() : "Pong!";
 
-        message += "\n  " + event.getJDA().getGatewayPing() + "ms";
-
-        event.reply(message).queue();
+        event.getHook().editOriginalEmbeds(
+                TREmbed.newEmbed(TREmbed.EmbedType.INFO, event.getJDA(), event.getUser())
+                       .setDescription(
+                               "%s\n  %dms".formatted(
+                                       messageOption != null ? messageOption.getAsString() : "Pong!",
+                                       event.getJDA().getGatewayPing()
+                               )
+                       )
+                       .build()
+        ).queue();
     }
 }
