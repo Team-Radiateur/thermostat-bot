@@ -26,14 +26,6 @@ public class RoleManagementEventHandler extends ListenerAdapter {
 
 	public RoleManagementEventHandler() {
 		logger = LoggerFactory.getLogger(getClass());
-
-		onCreate();
-	}
-
-	private void onCreate() {
-		logger.info("Création du gestionnaire d'événements de gestion des rôles");
-
-
 	}
 
 	@Override
