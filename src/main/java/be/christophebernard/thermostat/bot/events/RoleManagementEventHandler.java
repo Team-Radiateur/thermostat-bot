@@ -72,7 +72,7 @@ public class RoleManagementEventHandler extends ListenerAdapter {
 
 	@Override
 	public void onGuildMemberRoleAdd(@NotNull GuildMemberRoleAddEvent event) {
-		logger.info("Nouveaux rôles ajoutés à %s:\n%s".formatted(
+		logger.info("New roles added to `%s`:\n%s".formatted(
 				            event.getMember().getEffectiveName(),
 				            event.getRoles().stream()
 				                 .map(role -> "%s (%s)".formatted(role.getName(), role.getId()))
@@ -106,16 +106,16 @@ public class RoleManagementEventHandler extends ListenerAdapter {
 
 	@Override
 	public void onRoleCreate(@NotNull RoleCreateEvent event) {
-		logger.info("Nouveau rôle créé: %s (%s)".formatted(event.getRole().getName(), event.getRole().getId()));
+		logger.info("New role created: %s (%s)".formatted(event.getRole().getName(), event.getRole().getId()));
 	}
 
 	@Override
 	public void onRoleDelete(@NotNull RoleDeleteEvent event) {
-		logger.info("Rôle supprimé: %s (%s)".formatted(event.getRole().getName(), event.getRole().getId()));
+		logger.info("Role deleted: %s (%s)".formatted(event.getRole().getName(), event.getRole().getId()));
 	}
 
 	@Override
 	public void onGenericRoleUpdate(@NotNull GenericRoleUpdateEvent event) {
-		logger.info("Rôle %s (%s) mis à jour".formatted(event.getRole().getName(), event.getRole().getId()));
+		logger.info("Role %s (%s) updated".formatted(event.getRole().getName(), event.getRole().getId()));
 	}
 }

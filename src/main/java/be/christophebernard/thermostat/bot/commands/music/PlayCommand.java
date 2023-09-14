@@ -101,7 +101,7 @@ public class PlayCommand implements ICommandExecutor {
 						scheduler.enqueue(audioTrack);
 					}
 
-					logger.info("%s ajouté à la file d'attente.".formatted(audioTrack.getInfo().title));
+					logger.info("%s added to tracklist.".formatted(audioTrack.getInfo().title));
 					embed.setDescription(
 							"%s de %s ajouté à la file d'attente.".formatted(
 									audioTrack.getInfo().title,
@@ -117,7 +117,7 @@ public class PlayCommand implements ICommandExecutor {
 
 				@Override
 				public void playlistLoaded(AudioPlaylist audioPlaylist) {
-					logger.info("%d musiques trouvées.".formatted(audioPlaylist.getTracks().size()));
+					logger.info("%d songs found.".formatted(audioPlaylist.getTracks().size()));
 					embed.setDescription(
 							"%d musiques de %s ajoutées à la file d'attente.".formatted(
 									audioPlaylist.getTracks().size(),
@@ -133,7 +133,7 @@ public class PlayCommand implements ICommandExecutor {
 
 				@Override
 				public void noMatches() {
-					logger.info("Aucun résultat trouvé.");
+					logger.info("No song matching url found.");
 					embed.setDescription("Aucun résultat trouvé pour cette recherche.");
 					sendEmbed();
 				}

@@ -60,7 +60,7 @@ public class MessageEventHandler extends ListenerAdapter {
         }
 
         if (messagePassesCheck(event.getMember(), event.getGuild(), event.getMessage())) {
-            logger.info("Message de %s: %s".formatted(
+            logger.info("Message from `%s`: %s".formatted(
                     event.getAuthor().getEffectiveName(),
                     event.getMessage().getContentRaw()
             ));
@@ -85,6 +85,6 @@ public class MessageEventHandler extends ListenerAdapter {
 
     @Override
     public void onMessageDelete(@NotNull MessageDeleteEvent event) {
-        logger.info("Suppression du message: %s".formatted(event.getMessageId()));
+        logger.info("Message deleted: %s".formatted(event.getMessageId()));
     }
 }

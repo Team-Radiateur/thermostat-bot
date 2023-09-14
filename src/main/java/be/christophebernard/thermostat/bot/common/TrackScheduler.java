@@ -137,13 +137,13 @@ public class TrackScheduler extends AudioEventAdapter {
 
 	@Override
 	public void onTrackStart(AudioPlayer player, AudioTrack track) {
-		logger.info("En cours de lecture : %s".formatted(track.getInfo().title));
+		logger.info("Now playing: `%s`".formatted(track.getInfo().title));
 	}
 
 	@Override
 	public void onTrackEnd(AudioPlayer player, AudioTrack track, AudioTrackEndReason endReason) {
 		if (endReason.mayStartNext) {
-			logger.info("Fin de la musique %s, passage à la suivante.".formatted(track.getInfo().title));
+			logger.info("Song `%s` ended, playing the next one.".formatted(track.getInfo().title));
 
 			if (queue.isEmpty()) {
 				return;
@@ -154,12 +154,12 @@ public class TrackScheduler extends AudioEventAdapter {
 
 	@Override
 	public void onTrackException(AudioPlayer player, AudioTrack track, FriendlyException exception) {
-		logger.warn("Une erreur est survenue lors de la lecture de %s".formatted(track.getInfo().title), exception);
+		logger.warn("An error occurred while playing `%s`".formatted(track.getInfo().title), exception);
 	}
 
 	@Override
 	public void onTrackStuck(AudioPlayer player, AudioTrack track, long thresholdMs) {
-		logger.error("Morceau %s bloqué, passage au suivant.".formatted(track.getInfo().title));
+		logger.error("Song `%s` hung, playing next song.".formatted(track.getInfo().title));
 
 		if (queue.isEmpty()) {
 			return;

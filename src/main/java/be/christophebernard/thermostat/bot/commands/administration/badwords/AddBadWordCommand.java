@@ -41,7 +41,7 @@ public class AddBadWordCommand implements ICommandExecutor {
 
 		String word = wordPayload.getAsString();
 
-		logger.info("Commande ban_word exécutée avec comme argument `%s`".formatted(word));
+		logger.info("Command ban_word executed with `%s` as argument".formatted(word));
 
 		if (!databaseConnector.addBadWord(Objects.requireNonNull(event.getGuild()).getId(), word)) {
 			throw new CommandExecutionError(
