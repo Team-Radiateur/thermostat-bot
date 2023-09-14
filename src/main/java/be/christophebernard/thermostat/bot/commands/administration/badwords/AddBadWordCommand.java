@@ -13,9 +13,14 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Objects;
 
-@DiscordCommand(name = "ban_word", description = "Bannit un mot ou une expression du serveur", options = {
-		"type: STRING|name: mot|description: Le mot ou l'expression à bannir|required: true",
-}, adminOnly = true)
+@DiscordCommand(
+		name = "ban_word",
+		description = "Bannit un mot ou une expression du serveur",
+		options = {
+				"type: STRING|name: mot|description: Le mot ou l'expression à bannir|required: true",
+		},
+		adminOnly = true
+)
 public class AddBadWordCommand implements ICommandExecutor {
 	private final Logger logger;
 	private final MySQLConnector databaseConnector;
